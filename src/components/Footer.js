@@ -13,8 +13,6 @@ import moment from 'moment';
 import AddTodo from './AddTodo';
 import Form from './Form';
 
-const TODAY = moment().format("YYYY.MM.DD");
-
 function Footer() {
 
   const dispatch = useDispatch();

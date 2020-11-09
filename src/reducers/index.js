@@ -7,11 +7,16 @@ import {
   DELETE_TASK,
   GET_DATE,
 } from '../actions/index';
+import moment from 'moment';
 
 const initial = {
   addInput: false,
   todoList: [],
   delete: false,
+  selected: {
+    date: moment().format('MMM Do'),
+    day: moment().format('dddd')
+  }
 }
 
 const reducer = (state = initial, action) => {
