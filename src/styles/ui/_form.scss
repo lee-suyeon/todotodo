@@ -1,0 +1,34 @@
+form {
+  width: 100%;
+}
+
+.form-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo-input {
+  display: block;
+  width: 100%;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.add-btn {
+  border: none;
+  color: $main-color;
+  transition: .2s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $main-color;
+    color: #ffffff;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

@@ -1,0 +1,36 @@
+html {
+  height: 100%;
+  background: rgb(254,209,180);
+  background: linear-gradient(135deg, rgba(254,209,180,1) 35%, rgba(247,174,129,1) 100%);
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 370px;
+  border: 1px solid $main-color;
+  background-color: #fff;
+  margin: 300px auto;
+}
+
+.app-header {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid $main-color;
+}
+
+h1 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: $main-color;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.app-main-content {
+  height: 360px;
+}
+
+.app-footer {
+  border-top: 1px solid $main-color;
+} 

@@ -1,0 +1,39 @@
+.add-todo {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: $main-color;
+  font-size: 0.8rem;
+}
+
+.add-new {
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 0.3rem;
+
+  &:hover {
+    background-color: $main-color;
+    color: #ffffff;
+  }
+}
+
+.icon-delete {
+  font-size: 1.2rem;
+  margin-right: 4rem;
+  margin-left: 5.5rem;
+}
+
+.delete-all {
+  position: absolute;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 0.3rem;
+  top: -35px; right: 20px;
+
+  &:hover {
+    background-color: $main-color;
+    color: #ffffff;
+  }
+}
