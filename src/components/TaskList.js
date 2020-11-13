@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Task from './Task';
 
-function TaskList({ todoList, deleteMode, changeAddMode, changeEditMode, onClickDelete }) {
+function TaskList({ todoList, deleteMode, changeTaskState, changeAddMode, changeEditMode, onClickDelete }) {
 
   return (
     <div className="to-do">
@@ -9,7 +9,8 @@ function TaskList({ todoList, deleteMode, changeAddMode, changeEditMode, onClick
         {todoList.map((todo, index) => (
           <Task 
             key={todo.id} 
-            todo={todo} 
+            todo={todo}
+            changeTaskState={changeTaskState}
             index={index}
             deleteMode={deleteMode}
             changeAddMode={changeAddMode}

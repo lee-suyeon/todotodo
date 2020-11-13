@@ -1,11 +1,13 @@
 import { 
   TOGGLE_ADD_MODE,
   ADD_TASK,
+  TOGGLE_CHECK_TASK,
   TOGGLE_EDIT_MODE,
   EDIT_TASK,
   TOGGLE_DELETE_MODE,
   DELETE_TASK,
   GET_DATE,
+  MOVE_PAGE,
 } from '../actions/index';
 import moment from 'moment';
 
@@ -14,9 +16,11 @@ const initial = {
   todoList: [],
   delete: false,
   selected: {
+    normal: moment().format('YYYY.MM.DD'),
     date: moment().format('MMM Do'),
     day: moment().format('dddd')
-  }
+  },
+  page: 'calendar',
 }
 
 const reducer = (state = initial, action) => {
@@ -31,6 +35,17 @@ const reducer = (state = initial, action) => {
       return {
         ...state,
         todoList: state.todoList.concat(action.payload),
+      }
+    }
+    case TOGGLE_CHECK_TASK: {
+      return {
+        ...state,
+        todoList: state.todoList.map(
+          task => 
+          task.id === action.id 
+          ? { ...task, done: !task.done }
+          : task
+        )
       }
     }
     case TOGGLE_EDIT_MODE: {
@@ -71,9 +86,16 @@ const reducer = (state = initial, action) => {
       return {
         ...state,
         selected: {
+          normal: action.normal,
           date: action.date,
           day: action.day
         }
+      }
+    }
+    case MOVE_PAGE: {
+      return {
+        ...state,
+        page: state.page === 'todoList' ? 'calendar' : 'todoList'
       }
     }
     default:

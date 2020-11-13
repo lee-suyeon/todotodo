@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 
-
-const TODAY = moment().format("YYYY.MM.DD");
-
-function Form({ todoList, edit, changeAddMode, onClickAddTask, changeEditMode, onClickEditTask }) {
+function Form({ todoList, edit, date, changeAddMode, onClickAddTask, changeEditMode, onClickEditTask }) {
   const [ todo, setTodo ] = useState(edit && edit.editMode ? todoList[edit.index].text : "");
 
   const inputChangeHandler = e => {
@@ -20,8 +17,8 @@ function Form({ todoList, edit, changeAddMode, onClickAddTask, changeEditMode, o
       changeAddMode();
       onClickEditTask(todo, edit.index);
     } else { // 제출
-      onClickAddTask(todo, TODAY);
-      changeAddMode();
+      onClickAddTask(todo, date.normal);
+      setTodo("");
     }
   }
 

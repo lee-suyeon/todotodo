@@ -1,74 +1,70 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import TaskList from '../../../components/TaskList';
-import NoTask from '../../../components/NoTask';
+import TaskList from 'components/TaskList';
+import NoTask from 'components/NoTask';
 
 import {
   toggleAddMode,
-  addTask,
+  toggleCheckTask,
   toggleEditMode,
-  editTask,
   toggleDeleteMode,
   deleteTask
   } from '../../../actions';
 
 function TodoList() {
   const dispatch = useDispatch();
-  const addInput = useSelector(state => state.addInput);
+
+  
   const todoList = useSelector(state => state.todoList);
   const deleteMode = useSelector(state => state.delete);
-  const edit = useSelector(state => state.edit);
-
+  const selectedDate = useSelector(state => state.selected.normal);
+  const [ todayList, setTodayList ] = useState([]);
+  
   // 할일 추가
   const changeAddMode = () => dispatch(toggleAddMode());
-  const onClickAddTask = (task, date) => dispatch(addTask(task, date));
 
   // 할일 수정
   const changeEditMode = index => dispatch(toggleEditMode(index));
-  const onClickEditTask = (todo, index) => dispatch(editTask(todo, index))
 
   // 할일 삭제
   const changeDeleteMode = () => dispatch(toggleDeleteMode());
   const onClickDelete = id => dispatch(deleteTask(id));
 
+  const changeTaskState = id => dispatch(toggleCheckTask(id));
+
+  // 삭제 모드에서 task가 0이 되면 삭제 모드 종료
+  useEffect(() => {
+    if(deleteMode && todoList.length === 0){
+      changeDeleteMode();
+    }
+  }, [todoList.length]);
+
+  // 선택한 날짜에 맞는 todolist만 로드
+  useEffect(() => {
+    if(todoList){
+      setTodayList(todoList.filter(todo => todo.date === selectedDate));
+    }
+  }, [todoList])
+
   return (
     <div className="TodoList">
       <div className="template">
-        
         <div className="content">
           {todoList && todoList.length > 0 ?
-            <TaskList 
-              todoList={todoList}
+            <TaskList
+              todoList={todayList}
               deleteMode={deleteMode}
+              selectedDate={selectedDate}
               changeAddMode={changeAddMode}
               changeEditMode={changeEditMode}
               onClickDelete={onClickDelete}
+              changeTaskState={changeTaskState}
             /> :
             <NoTask />
           }
         </div>
-
-        {/* <div className="footer">
-          {addInput ?
-            <Form 
-              todoList={todoList}
-              edit={edit}
-              changeAddMode={changeAddMode}
-              onClickAddTask={onClickAddTask}
-              changeEditMode={changeEditMode}
-              onClickEditTask={onClickEditTask}
-            /> :
-            <AddTodo
-              todoList={todoList}
-              deleteMode={deleteMode}
-              changeAddMode={changeAddMode}
-              changeDeleteMode={changeDeleteMode}
-              onClickDelete={onClickDelete}
-            />
-          }
-        </div> */}
       </div>
     </div>
   );

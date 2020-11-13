@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleAddMode } from '../actions/index';
+import { toggleAddMode, movePage, toggleDeleteMode } from '../actions/index';
 
 function Header(props) {
   
@@ -9,30 +9,27 @@ function Header(props) {
   const selected = useSelector(state => state.selected);
   const addInput = useSelector(state => state.addInput);
   const [ title, setTitle ] = useState(false);
+  const todoList = useSelector(state => state.todoList);
 
-  useEffect(() => {
-    if(addInput) {
-      setTitle(true);
-    } else {
-      props.history.push('/')
-    }
-  }, [title, selected, addInput])
-
-  console.log(title);
-  //props.location.pathname === "/todolist"
+  const onClickDelete = () => {
+    dispatch(toggleDeleteMode());
+  }
 
   const onClickGoBack = () => {
     props.history.push('/');
     dispatch(toggleAddMode());
+    dispatch(movePage());
   }
 
   return (
     <div>
-      {title && selected ?
+      {props.location.pathname === "/todolist" ?
         <div className="selected">
           <i className="icon-chevron-left" onClick={onClickGoBack}/>
           <span className="selected-day">{selected.day.toUpperCase()}, </span>
           <span className="selected-date">{selected.date}</span>
+          {todoList && todoList.length > 0 &&
+            <i className="icon-delete" onClick={onClickDelete} />}
         </div> :
         <h1>TODO TODO</h1> 
       }

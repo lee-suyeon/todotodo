@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
-function Task({ todo, index, deleteMode, changeAddMode, changeEditMode, onClickDelete }) {
-  
-  // 체크 상태
+function Task({ todo, index, deleteMode, changeAddMode, changeTaskState, changeEditMode, onClickDelete }) {
   const [ done, setDone ] = useState(false);
 
   // task 클릭하면 done or delete
@@ -10,7 +8,7 @@ function Task({ todo, index, deleteMode, changeAddMode, changeEditMode, onClickD
     if(deleteMode) {
       onClickDelete(id);
     } else {
-      setDone(prev => !prev);
+      changeTaskState(id);
     }
   }
 
@@ -38,14 +36,14 @@ function Task({ todo, index, deleteMode, changeAddMode, changeEditMode, onClickD
               className="check-box"
               type="checkbox"
               name="check"
-              checked={done}
+              checked={todo.done}
               value={todo.id}
               onChange={checkedHandler}
             />
             <i className="icon-check" />
           </div>
         }
-        <span className={[ 'todo-text', done && 'done'].join(' ')}>
+        <span className={[ 'todo-text', todo.done && 'done'].join(' ')}>
           {todo.text}
         </span>
         <span className="date">{todo.date}</span>

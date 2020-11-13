@@ -1,32 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-function AddTodo({ todoList, deleteMode, changeAddMode, changeDeleteMode, onClickDelete }) {
+function AddTodo({ todoList, deleteMode, changeDeleteMode, onClickMove, history, selectedDate, getTodayList }) {
   
   const onClickAddBtn = () => {
-    changeAddMode();
+    onClickMove();
+    //changeAddMode();
     
     if(deleteMode) {
       changeDeleteMode();
     }
   }
 
+  const onClickTasks = () => {
+    onClickMove();
+    history.push('/todolist')
+  }
+
   return (
     <div className="add-todo">
-      <div className='task'>
-        <span style={{ fontWeight: 'bold' }}>{todoList.length} </span>
-        <span>TASKS</span>
-        {todoList.length > 0 && 
-          <i className="icon-menu"></i>
-        }
-      </div>
+      <Link to="/todolist">
+        <div className='task'>
+        <span style={{ fontWeight: 'bold' }}>{todoList ? todoList.filter(todo => todo.date === selectedDate).length : "0"}</span>
+          <span onClick={onClickTasks}> TASKS </span>
+          <i className="icon-menu" />
+        </div>
+      </Link>
       <div className="delete">
-        {todoList && todoList.length > 0 &&
-          <i className="icon-delete" onClick={changeDeleteMode}/>
-        }
-        {deleteMode &&
-          <div className="delete-all">전체 삭제</div>
-        }
       </div>
       <Link to="/todolist">
         <div className='add-new' onClick={onClickAddBtn}>
@@ -38,4 +38,4 @@ function AddTodo({ todoList, deleteMode, changeAddMode, changeDeleteMode, onClic
   )
 }
 
-export default AddTodo
+export default withRouter(AddTodo);
