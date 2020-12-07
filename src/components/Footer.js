@@ -19,9 +19,8 @@ function Footer() {
   const todoList = useSelector(state => state.todoList);
   const edit = useSelector(state => state.edit);
   const deleteMode = useSelector(state => state.delete);
-  const date = useSelector(state => state.selected)
   const page = useSelector(state => state.page);
-  const selectedDate = useSelector(state => state.selected.normal);
+  const selectedDate = useSelector(state => state.selected);
 
   // 할일 추가
   const changeAddMode = () => dispatch(toggleAddMode());
@@ -38,7 +37,6 @@ function Footer() {
   // page 이동
   const onClickMove = () => dispatch(movePage());
 
-
   return (
     <div className="footer">
       {page === 'calendar' ?
@@ -49,12 +47,12 @@ function Footer() {
           changeDeleteMode={changeDeleteMode}
           onClickDelete={onClickDelete}
           onClickMove={onClickMove}
-          selectedDate={selectedDate}
+          selectedDate={selectedDate.normal}
         /> :
         <Form 
           todoList={todoList}
           edit={edit}
-          date={date}
+          selectedDate={selectedDate}
           changeAddMode={changeAddMode}
           onClickAddTask={onClickAddTask}
           changeEditMode={changeEditMode}

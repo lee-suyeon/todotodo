@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 
-function Form({ todoList, edit, date, changeAddMode, onClickAddTask, changeEditMode, onClickEditTask }) {
-  const [ todo, setTodo ] = useState(edit && edit.editMode ? todoList[edit.index].text : "");
+function Form({ todoList, selectedDate, edit, onClickAddTask, onClickEditTask }) {
+  const [ todo, setTodo ] = useState("");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus()
+
+    if(edit && edit.editMode) {
+      setTodo(todoList[edit.index].text)
+    }
+  }, [edit])
 
   const inputChangeHandler = e => {
     setTodo(e.target.value);
@@ -14,11 +23,13 @@ function Form({ todoList, edit, date, changeAddMode, onClickAddTask, changeEditM
     if(todo == "") { // 할일 입력값이 없을 때,
       alert('할일을 입력해주세요')
     } else if (edit && edit.editMode) { // editMode일 때,
-      changeAddMode();
       onClickEditTask(todo, edit.index);
-    } else { // 제출
-      onClickAddTask(todo, date.normal);
       setTodo("");
+    } else { // 제출
+      let date = selectedDate;
+      onClickAddTask(todo, date);
+      setTodo("");
+      inputRef.current.focus();
     }
   }
 
@@ -32,9 +43,10 @@ function Form({ todoList, edit, date, changeAddMode, onClickAddTask, changeEditM
           onChange={inputChangeHandler}
           placeholder="할 일을 입력해주세요."
           maxLength="50"
+          ref={inputRef}
           />
         <button className="add-btn" type="submit">
-          {edit && edit.editMode ? "OK" : "ADD"}
+          {edit && edit.editMode ? "EDIT" : "ADD"}
         </button>
       </div>
     </form>

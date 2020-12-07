@@ -7,8 +7,6 @@ function Header(props) {
   
   const dispatch = useDispatch();
   const selected = useSelector(state => state.selected);
-  const addInput = useSelector(state => state.addInput);
-  const [ title, setTitle ] = useState(false);
   const todoList = useSelector(state => state.todoList);
 
   const onClickDelete = () => {

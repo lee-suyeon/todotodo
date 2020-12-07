@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { getDate } from '../../../actions/index'
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 
-
-
 function TodoCalendar() {
-
   const dispatch = useDispatch();
-  const todoList = useSelector(state => state.todoList);
-  const selectedDate = useSelector(state => state.selected.normal);
   const [ value, onChange ] = useState(new Date());
+  const initDate = useRef();
 
   const onClickDay = value => {
     const normal = moment(value).format('YYYY.MM.DD');
@@ -23,6 +19,11 @@ function TodoCalendar() {
     dispatch(getDate(normal, date, day));
   }
 
+  // 선택 날짜 초기화
+  useEffect(() => {
+    initDate.current.onClickTile();
+  }, [])
+
   return (
     <div className="todo-calendar">
       <Calendar 
@@ -30,6 +31,7 @@ function TodoCalendar() {
         value={value}
         locale="en-us"
         onClickDay={onClickDay}
+        ref={initDate}
       />
     </div>
   )

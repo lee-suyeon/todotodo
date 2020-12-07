@@ -19,7 +19,7 @@ export const toggleAddMode = () => {
 
 // 할일 목록 리스트 순서
 let nextId = 0;
-export const addTask = (text, date) => {
+export const addTask = (text, date, time) => {
   return {
     type: ADD_TASK,
     payload: {

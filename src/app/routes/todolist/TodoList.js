@@ -15,11 +15,11 @@ import {
 
 function TodoList() {
   const dispatch = useDispatch();
-
   
   const todoList = useSelector(state => state.todoList);
   const deleteMode = useSelector(state => state.delete);
   const selectedDate = useSelector(state => state.selected.normal);
+  const edit = useSelector(state => state.edit)
   const [ todayList, setTodayList ] = useState([]);
   
   // 할일 추가
@@ -43,10 +43,10 @@ function TodoList() {
 
   // 선택한 날짜에 맞는 todolist만 로드
   useEffect(() => {
-    if(todoList){
-      setTodayList(todoList.filter(todo => todo.date === selectedDate));
+    if(todoList || edit.editMode === false){
+      setTodayList(todoList.filter(todo => todo.date.normal === selectedDate));
     }
-  }, [todoList])
+  }, [todoList, edit])
 
   return (
     <div className="TodoList">

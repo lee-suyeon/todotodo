@@ -5,19 +5,22 @@ import './index.css';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import reducer from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
+// import { persistStore } from "redux-persist";
+// import { PersistGate } from "redux-persist/integration/react";
+import rootReducer from './reducers'
 
-const store = createStore(reducer, composeWithDevTools());
+const store = createStore(rootReducer, composeWithDevTools());
+// const persistor = persistStore(store);
 console.log(store.getState());
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Provider store={store}>
         <App />
-      </BrowserRouter>
-    </Provider>
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

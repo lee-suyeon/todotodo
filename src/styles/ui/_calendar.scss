@@ -62,3 +62,25 @@
 abbr[title] {
   text-decoration: none;
 }
+
+abbr{
+  position: relative;
+}
+
+// .react-calendar__month-view__days__day > abbr::after {
+//   content: "";
+//   position: absolute;
+//   bottom: -8px; left: 50%;
+//   transform: translateX(-50%);
+//   width: 3px;
+//   height: 3px;
+//   background-color: $main-color;
+// }
+
+// .react-calendar__month-view__days__day--weekend > abbr::after {
+//   background-color: $sub-color;
+// }
+
+// .react-calendar__month-view__days__day--neighboringMonth > abbr::after {
+//   display: none;
+// }

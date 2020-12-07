@@ -21,7 +21,7 @@ function AddTodo({ todoList, deleteMode, changeDeleteMode, onClickMove, history,
     <div className="add-todo">
       <Link to="/todolist">
         <div className='task'>
-        <span style={{ fontWeight: 'bold' }}>{todoList ? todoList.filter(todo => todo.date === selectedDate).length : "0"}</span>
+        <span style={{ fontWeight: 'bold' }}>{todoList ? todoList.filter(todo => todo.date.normal === selectedDate).length : "0"}</span>
           <span onClick={onClickTasks}> TASKS </span>
           <i className="icon-menu" />
         </div>

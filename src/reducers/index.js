@@ -95,7 +95,7 @@ const reducer = (state = initial, action) => {
     case MOVE_PAGE: {
       return {
         ...state,
-        page: state.page === 'todoList' ? 'calendar' : 'todoList'
+        page: state.page === 'todoList' ? 'calendar' : 'todoList',
       }
     }
     default:

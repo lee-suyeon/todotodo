@@ -19,7 +19,7 @@ function Task({ todo, index, deleteMode, changeAddMode, changeTaskState, changeE
   // editmode -> 수정할 대상 가져오기, 입력 폼 활성화
   const onChangeEditMode = (e, index) => {
     e.stopPropagation();
-    
+
     changeEditMode(index);
     changeAddMode();
   }
@@ -46,7 +46,7 @@ function Task({ todo, index, deleteMode, changeAddMode, changeTaskState, changeE
         <span className={[ 'todo-text', todo.done && 'done'].join(' ')}>
           {todo.text}
         </span>
-        <span className="date">{todo.date}</span>
+        <span className="date">{todo.date.normal}</span>
         <i className="icon-edit" onClick={e => onChangeEditMode(e, index)}/>  
       </li>
     </div>
