@@ -10,6 +10,8 @@ import {
   MOVE_PAGE,
 } from '../actions/index';
 import moment from 'moment';
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 const initial = {
   addInput: false,
@@ -103,4 +105,11 @@ const reducer = (state = initial, action) => {
   }
 }
 
-export default reducer;
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["todoList"]
+};
+
+
+export default persistReducer(persistConfig, reducer);
