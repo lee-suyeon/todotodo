@@ -52,7 +52,7 @@ function TodoList() {
     <div className="TodoList">
       <div className="template">
         <div className="content">
-          {todoList && todoList.length > 0 ?
+          {todayList && todayList.length > 0 ?
             <TaskList
               todoList={todayList}
               deleteMode={deleteMode}
